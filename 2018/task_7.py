@@ -1,184 +1,155 @@
 
+def read_graph(filename):
 
-# Get input graph
-def load_input(filename):
-
-    dependencies = {}
+    graph = {}
 
     with open(filename) as f:
-
         for _line in f.readlines():
 
             first_hop = _line.split()[1]
-            second_hop = _line.split()[7]
+            next_hop = _line.split()[7]
 
-            # Initialize dependencies
-            if first_hop not in dependencies:
-                dependencies[first_hop] = []
-            if second_hop not in dependencies:
-                dependencies[second_hop] = []
+            if first_hop not in graph:
+                graph[first_hop] = []
 
-            # second hop should be build after first hop
-            dependencies[second_hop].append(first_hop)
+            if next_hop not in graph:
+                graph[next_hop] = []
 
-    return dependencies
+            graph[first_hop].append(next_hop)
 
+    for _hop in graph:
+        graph[_hop] = sorted(graph[_hop])[::-1]
 
-# topological sort
-def topological_sort(dep):
+    # for _hop in graph:
+    #     print(_hop, ' : ', graph[_hop])
+    # print(graph)
 
-    result = []
-
-    while len(dep):
-
-        hop_wo_dep = min([_hop for _hop in dep if len(dep[_hop]) == 0])
-
-        # remove hops w/o any dependencies
-        del dep[hop_wo_dep]
-
-        # remove hops for other hops dependencies
-        for _, _other_hop_dependency in dep.items():
-            if hop_wo_dep in _other_hop_dependency:
-                del _other_hop_dependency[_other_hop_dependency.index(hop_wo_dep)]
-
-        result.append(hop_wo_dep)
-
-    return result
+    return graph
 
 
-#
-def worker(worker_id, workers, work_id, start_time):
+def dfs(idx, hops, graph, visited, res):
 
-    # work time
-    work_time = ord(work_id) - ord('A') + 1 + 60
+    visited[idx] = True
 
-    # [end_time, work_id]
-    workers[worker_id] = [start_time + work_time, work_id, worker_id]
+    for _next_hop in graph[hops[idx]]:
 
+        next_idx = hops.index(_next_hop)
 
-def get_active_tasks(dep, task_list, active_tasks):
+        if not visited[next_idx]:
+            dfs(next_idx, hops, graph, visited, res)
 
-    # result = []
-
-    for _task in task_list:
-        if len(dep[_task]) == 0:
-            active_tasks.append(_task)
-            del dep[_task]
-
-    for _task in active_tasks:
-        if _task in task_list:
-            del task_list[task_list.index(_task)]
-
-    # return result
+    res.append(hops[idx])
 
 
-def get_next_worker_with_min_time(workers):
+def get_reversed_graph(graph):
 
-    _workers_with_tasks = [_worker for _worker in workers if len(_worker)]
+    new_graph = {}
 
-    return min(_workers_with_tasks)
+    for _hop in graph:
 
+        for _other_hop in graph[_hop]:
 
-def remove_from_dep(dep, work_id):
+            if _other_hop not in new_graph:
+                new_graph[_other_hop] = []
+            if _hop not in new_graph:
+                new_graph[_hop] = []
 
-    for _, _dep_hops in dep.items():
-        if work_id in _dep_hops:
-            del _dep_hops[_dep_hops.index(work_id)]
+            new_graph[_other_hop].append(_hop)
 
-
-def get_next_task(dep):
-
-    result = []
-
-    for _task, _depend in dep.items():
-        if len(_depend) == 0:
-            result.append(_task)
-
-    return sorted(result)[0] if result else None
+    return new_graph
 
 
-def work(dep, task_list):
+def my_sort(graph):
 
-    num_workers = 5
+    new_graph = get_reversed_graph(graph)
 
-    free_workers = [_i for _i in range(num_workers)]
-    workers = [[] for _ in range(num_workers)]
+    res = []
 
-    cur_time = 0
-    done_tasks = []
-    active_tasks = []
+    while len(new_graph) > 0:
 
-    while len(task_list) or len(free_workers) != num_workers or len(active_tasks) > 0:
+        equal_hop = None
 
-        # print('Task List : ', task_list)
-        get_active_tasks(dep, task_list, active_tasks)
+        for _hop in sorted(new_graph):
+            if len(new_graph[_hop]) == 0:
+                equal_hop = _hop
+                break
 
-        while len(active_tasks) and len(free_workers):
-            # Add  task to worker
-            worker(free_workers[0], workers, active_tasks[0], cur_time)
-            del free_workers[0]
-            # Remove task from active
-            del active_tasks[0]
+        res.append(equal_hop)
 
-        # Get next time
-        # print(workers)
-        next_free_worker = get_next_worker_with_min_time(workers)
-        work_id = next_free_worker[1]
-        worker_id = next_free_worker[2]
+        # for _hop_to_del in equal_hops:
+        _hop_to_del = equal_hop
+        del new_graph[_hop_to_del]
 
-        # Add task to Done container
-        done_tasks.append(work_id)
+        for _hop in new_graph:
+            if _hop_to_del in new_graph[_hop]:
+                del new_graph[_hop][new_graph[_hop].index(_hop_to_del)]
 
-        # move time
-        cur_time = next_free_worker[0]
-
-        # done work
-        remove_from_dep(dep, work_id)
-        # print('Dep : ', dep)
-
-        # free worker
-        workers[worker_id] = []
-        free_workers.append(worker_id)
-
-        # update active tasks
-        get_active_tasks(dep, task_list, active_tasks)
-        # print('Active: ', active_tasks)
-
-    print(cur_time)
-
-    return done_tasks
+    # print(res)
+    print(''.join(res))
+    return res
 
 
-def task_7_1(filename):
+def task_7(filename):
 
-    # Get input
-    dep = load_input(filename)
+    graph = read_graph(filename)
 
-    # topological alphabetic sort
-    sorted_hops = topological_sort(dep)
+    order = my_sort(graph)
+    rev_graph = get_reversed_graph(graph)
 
-    # prepare output
-    print(''.join(sorted_hops))
+    workers = [[] for _ in range(5)]
 
+    done = []
 
-def task_7_2(filename):
+    while len(order) > 0:
 
-    # Get input
-    dep = load_input(filename)
+        time = 0
+        min_time = 0
 
-    # topological alphabetic sort
-    sorted_hops = topological_sort(dep)
+        next_orders = []
 
-    dep = load_input(filename)
+        for _order in order:
+            if len(rev_graph[_order]) == 0:
+                next_orders.append(_order)
 
-    # Complete all tasks
-    # print('Sorted : ', sorted_hops)
-    res = work(dep, sorted_hops)
+        for _order in next_orders:
+            for _id_worker in range(len(workers)):
+                if len(workers[_id_worker]) == 0:
+                    workers[_id_worker] = [time + ord(_order) - ord('A') + 1, _order]
+                    min_time = time + ord(_order) - ord('A') + 1
+
+        # get worker with min time
+        for _id_worker in range(len(workers)):
+            min_time = min(min_time, workers[_id_worker][0])
+
+        time = min_time
+
+        for _id_worker in range(len(workers)):
+            if workers[_id_worker][0] == time:
+                done.append(workers[_id_worker][1])
+
+                del rev_graph[workers[_id_worker][1]]
+                for _order in rev_graph:
+                    if workers[_id_worker][1] in rev_graph[_order]:
+                        del rev_graph[_order][rev_graph[_order].index(workers[_id_worker][1])]
+
 
     #
-    print(''.join(res))
+    # visited = [False for _ in range(len(graph))]
+    #
+    # hops = sorted(list(graph.keys()))[::-1]
+    # res = []
+    #
+    # for _idx in range(len(hops)):
+    #
+    #     if not visited[_idx]:
+    #         dfs(_idx, hops, graph, visited, res)
+    #
+    # # print(res[::-1])
+    # print(''.join(res[::-1]))
+    #
+    # for _idx in range(len(res)):
 
 
-# task_7_1('task_7_1.txt')
-task_7_2('task_7_1.txt')
+task_7('task_7_2.txt')
+
 
