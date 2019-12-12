@@ -77,3 +77,9 @@ add_executable(day_09 ${DAY_9_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/
 file(GLOB DAY_10_SRC src/Day_10/*)
 add_executable(day_10 ${DAY_10_SRC} ${COMMON_SRC})
 
+############## Day 11: Space Police ##########
+
+file(GLOB DAY_11_SRC src/Day_11/*)
+add_executable(day_11 ${DAY_11_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
+
+

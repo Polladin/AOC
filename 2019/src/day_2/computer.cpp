@@ -67,6 +67,7 @@ void Computer::prepare_day_7_part_1( const std::string & inputFile )
   memory = prepare_input( inputFile );
   ipos = 0;
   isHalted = false;
+  relPos = 0;
 }
 
 bool Computer::run_day_7_part_1( const std::queue< long long >& input, std::vector< long long > & output )
