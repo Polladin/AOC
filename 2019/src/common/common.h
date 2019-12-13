@@ -26,3 +26,21 @@ static std::function< bool( const t_coord &, const t_coord & ) >
   { return lhs.x == rhs.x ? lhs.y < rhs.y
                           : lhs.x < rhs.x;
   };
+
+
+static long long gcd( long long a, long long b )
+{
+  while ( a % b != 0 )
+  {
+    a = a % b;
+    std::swap( a, b );
+  }
+
+  return b;
+}
+
+
+static long long lcm( long long a, long long b )
+{
+  return a * b / gcd( a, b );
+}

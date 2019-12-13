@@ -82,4 +82,8 @@ add_executable(day_10 ${DAY_10_SRC} ${COMMON_SRC})
 file(GLOB DAY_11_SRC src/Day_11/*)
 add_executable(day_11 ${DAY_11_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
 
+############## Day 12: The N-Body Problem ##########
+
+file(GLOB DAY_12_SRC src/Day_12/*)
+add_executable(day_12 ${DAY_12_SRC} ${COMMON_SRC})
 
