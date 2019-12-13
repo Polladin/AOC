@@ -32,13 +32,17 @@ private:
   long long run_part_2_step( std::vector< long long > opcodes, int noun, int verb );
 
 
+
+public:
+
+  std::vector< long long > memory;
+
 private:
   
   std::queue< long long > m_input;
   std::vector< long long > m_output;
 
   long long ipos{ 0 };
-  std::vector< long long > memory;
   bool isHalted{ false };
 
   // Relative pointer

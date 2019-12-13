@@ -87,3 +87,9 @@ add_executable(day_11 ${DAY_11_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2
 file(GLOB DAY_12_SRC src/Day_12/*)
 add_executable(day_12 ${DAY_12_SRC} ${COMMON_SRC})
 
+############## Day 13: Care Package ##########
+
+file(GLOB DAY_13_SRC src/Day_13/*)
+add_executable(day_13 ${DAY_13_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
+
+

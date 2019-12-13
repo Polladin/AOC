@@ -128,7 +128,7 @@ void Computer::execute( std::vector< long long >& opcodes, long long pos )
 
   for ( int i = 0; i < MAX_STEPS; ++i )
   {
-    if ( i % 1000 == 0 && i > 1000 )
+    if ( i % 100000 == 0 && i > 1000 )
       std::cout << "I : " << i << "\n";
 
     // Inititalize parameter modes
