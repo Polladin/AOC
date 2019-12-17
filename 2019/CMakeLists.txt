@@ -92,4 +92,8 @@ add_executable(day_12 ${DAY_12_SRC} ${COMMON_SRC})
 file(GLOB DAY_13_SRC src/Day_13/*)
 add_executable(day_13 ${DAY_13_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
 
+############## Day 14: Space Stoichiometry ##########
+
+file(GLOB DAY_14_SRC src/Day_14/*)
+add_executable(day_14 ${DAY_14_SRC} ${COMMON_SRC})
 
