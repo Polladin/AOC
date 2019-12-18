@@ -151,7 +151,7 @@ int Oxygen::visit_node( std::pair<t_coord, int> node )
 
   int resCode = out.front();
 
-  if ( resCode == 1 /* not filled cell */ )
+  if ( resCode != 0 /* not filled cell */ )
   {
     // return back to current node
     in = std::queue< long long >();
