@@ -107,3 +107,7 @@ add_executable(day_15 ${DAY_15_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2
 file(GLOB DAY_16_SRC src/Day_16/*)
 add_executable(day_16 ${DAY_16_SRC} ${COMMON_SRC})
 
+############## Day 17: Flawed Frequency Transmission ##########
+
+file(GLOB DAY_17_SRC src/Day_17/*)
+add_executable(day_17 ${DAY_17_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
