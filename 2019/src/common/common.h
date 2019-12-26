@@ -4,10 +4,16 @@
 #include <algorithm>
 #include <iostream>
 #include <map>
+#include <string>
+#include <vector>
 
 
 struct t_coord
 {
+  t_coord()
+    : x{ 0 }, y{ 0 }
+  {}
+
   t_coord( int _x, int _y )
     : x{ _x }, y{ _y }
   {}

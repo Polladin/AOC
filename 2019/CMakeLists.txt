@@ -111,3 +111,8 @@ add_executable(day_16 ${DAY_16_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_17_SRC src/Day_17/*)
 add_executable(day_17 ${DAY_17_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
+
+############## Day 18: Many-Worlds Interpretation ##########
+
+file(GLOB DAY_18_SRC src/Day_18/*)
+add_executable(day_18 ${DAY_18_SRC} ${COMMON_SRC})
