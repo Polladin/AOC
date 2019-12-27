@@ -116,3 +116,8 @@ add_executable(day_17 ${DAY_17_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2
 
 file(GLOB DAY_18_SRC src/Day_18/*)
 add_executable(day_18 ${DAY_18_SRC} ${COMMON_SRC})
+
+############## Day 19: Tractor Beam ##########
+
+file(GLOB DAY_19_SRC src/Day_19/*)
+add_executable(day_19 ${DAY_19_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)

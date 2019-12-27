@@ -62,12 +62,14 @@ long long Computer::run_day_5_part_1( const std::string & inputFile, const std::
   return inputCodes[ 0 ];
 }
 
-void Computer::prepare_day_7_part_1( const std::string & inputFile )
+std::vector< long long > Computer::prepare_day_7_part_1( const std::string & inputFile )
 {
   memory = prepare_input( inputFile );
   ipos = 0;
   isHalted = false;
   relPos = 0;
+
+  return memory;
 }
 
 bool Computer::run_day_7_part_1( const std::queue< long long >& input, std::vector< long long > & output )
@@ -84,6 +86,14 @@ bool Computer::run_day_7_part_1( const std::queue< long long >& input, std::vect
   output = m_output;
 
   return isHalted;
+}
+
+void Computer::reset_program( const std::vector<long long>& _memory )
+{
+  memory = _memory;
+  ipos = 0;
+  isHalted = false;
+  relPos = 0;
 }
 
 

@@ -15,8 +15,10 @@ public:
 
   long long run_day_5_part_1( const std::string & inputFile, const std::queue< long long > & input, std::vector< long long > & output );
 
-  void prepare_day_7_part_1( const std::string & inputFile );
+  std::vector< long long > prepare_day_7_part_1( const std::string & inputFile );
   bool run_day_7_part_1( const std::queue< long long >& input, std::vector< long long > & output );
+
+  void reset_program( const std::vector< long long > & _memory );
 
 private:
 
