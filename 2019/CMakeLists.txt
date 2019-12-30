@@ -121,3 +121,9 @@ add_executable(day_18 ${DAY_18_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_19_SRC src/Day_19/*)
 add_executable(day_19 ${DAY_19_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
+
+############## Day 20: Donut Maze ##########
+
+file(GLOB DAY_20_SRC src/Day_20/*)
+add_executable(day_20 ${DAY_20_SRC} ${COMMON_SRC})
+
