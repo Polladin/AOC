@@ -132,4 +132,8 @@ add_executable(day_20 ${DAY_20_SRC} ${COMMON_SRC})
 file(GLOB DAY_21_SRC src/Day_21/*)
 add_executable(day_21 ${DAY_21_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
 
+############## Day 22: Slam Shuffle ##########
+
+file(GLOB DAY_22_SRC src/Day_22/*)
+add_executable(day_22 ${DAY_22_SRC} ${COMMON_SRC})
 

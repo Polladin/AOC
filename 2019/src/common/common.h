@@ -37,6 +37,13 @@ static std::function< bool( const t_coord &, const t_coord & ) >
                           : lhs.x < rhs.x;
   };
 
+static std::function< bool( const std::pair< long long, long long > &, const std::pair< long long, long long > & ) >
+compare_longs =
+[]( const std::pair< long long, long long > & lhs, const std::pair< long long, long long > & rhs )
+{ return lhs.first == rhs.first ? lhs.second < rhs.second
+  : lhs.first < rhs.first;
+};
+
 
 static long long gcd( long long a, long long b )
 {
