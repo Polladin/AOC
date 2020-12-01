@@ -13,6 +13,6 @@ public:
 
 private:
 
-    std::vector< int > prepare_input( const std::string & filename );
+    static std::vector< int > prepare_input( const std::string & filename );
 
 };

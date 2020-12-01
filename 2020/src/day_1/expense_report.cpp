@@ -46,18 +46,16 @@ std::array< std::size_t ,3 > find_sum_2020_of_3( const std::vector< int > & inpu
       {
         int sum = input[ botBorder ] + input[ midBorder ] + input[ topBorder ];
 
-        std::cout << midBorder << " " << sum << std::endl;
-
+        // Take a result
         if ( sum == 2020 )
           return { botBorder, midBorder, topBorder };
 
+        // lower border
         if ( sum < 2020 )
-          break;
-
-        if ( botBorder == 0 )
           break;
       }
 
+      // To prevent overflow
       if ( botBorder == 0 )
         break;
 
@@ -71,28 +69,27 @@ std::array< std::size_t ,3 > find_sum_2020_of_3( const std::vector< int > & inpu
 
 std::pair< std::size_t, std::size_t > find_sum_2020( const std::vector< int > & input, std::size_t middleIdx )
 {
-  std::size_t rBorder = middleIdx;
-
-  while( rBorder < input.size() )
+  for ( std::size_t rBorder = middleIdx; rBorder < input.size(); ++rBorder )
   {
     std::size_t lBorder = middleIdx - 1;
     while( lBorder >= 0 )
     {
       int sum = input[ lBorder ] + input[ rBorder ];
 
+      // Take a result
       if ( sum == 2020 )
         return { lBorder, rBorder };
 
+      // lower border
       if ( sum < 2020 )
         break;
 
+      // To prevent overflow
       if ( lBorder == 0 )
         break;
 
       --lBorder;
     }
-
-    ++rBorder;
   }
 
   throw std::invalid_argument("Sum 2020 not found");
