@@ -5,6 +5,7 @@ project (AdventOfCode)
 
 ################ Definitions ###############
 
+set(CMAKE_CXX_STANDARD 17)
 add_definitions(-DINPUT_FILES="${CMAKE_CURRENT_SOURCE_DIR}/input")
 
 ################# BOOST ######################
@@ -92,3 +93,9 @@ add_executable(day_12 ${DAY_12_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_13_SRC src/day_13/*)
 add_executable(day_13 ${DAY_13_SRC} ${COMMON_SRC})
+
+############## --- Day 14: Docking Data --- ##########
+
+file(GLOB DAY_14_SRC src/day_14/*)
+add_executable(day_14 ${DAY_14_SRC} ${COMMON_SRC})
+
