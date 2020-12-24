@@ -47,10 +47,8 @@ unsigned long long prepare_brakets( const std::string & sInput, std::size_t & cu
     else if ( sInput[ currentIdx ] == ')' )
     {
 //      std::cout << "Res: " << result << " num: " << number << std::endl;
-      result = ( op == Operations::ADD ) ? result + number
-                                         : result * number;
       ++currentIdx;
-      return result;
+      break;
     }
 
     ++currentIdx;
