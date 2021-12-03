@@ -33,3 +33,12 @@ file(GLOB COMMON_SRC src/common/*)
 file(GLOB DAY_1_SRC src/day_1/*)
 add_executable(day_01 ${DAY_1_SRC} ${COMMON_SRC})
 
+############## --- Day 2: Dive --- ##########
+
+file(GLOB DAY_2_SRC src/day_2/*)
+add_executable(day_02 ${DAY_2_SRC} ${COMMON_SRC})
+
+############## --- Day 3: Binary Diagnostic --- ##########
+
+file(GLOB DAY_3_SRC src/day_3/*)
+add_executable(day_03 ${DAY_3_SRC} ${COMMON_SRC})
