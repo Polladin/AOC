@@ -47,3 +47,8 @@ add_executable(day_03 ${DAY_3_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_4_SRC src/day_4/*)
 add_executable(day_04 ${DAY_4_SRC} ${COMMON_SRC})
+
+############## --- Day 5: Hydrothermal Venture --- ##########
+
+file(GLOB DAY_5_SRC src/day_5/*)
+add_executable(day_05 ${DAY_5_SRC} ${COMMON_SRC})
