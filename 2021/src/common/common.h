@@ -123,3 +123,48 @@ static void print_map( const std::map< t_coord, int, decltype(compare_coords) > 
     std::cout << "\n";
   }
 }
+
+namespace common {
+
+// trim from start
+static inline std::string & ltrim( std::string & s )
+{
+  s.erase( s.begin(), std::find_if( s.begin(), s.end(), std::not1( std::ptr_fun< int, int >( std::isspace ) ) ) );
+  return s;
+}
+
+// trim from end
+static inline std::string & rtrim( std::string & s )
+{
+  s.erase( std::find_if( s.rbegin(), s.rend(), std::not1( std::ptr_fun< int, int >( std::isspace ) ) ).base(), s.end() );
+  return s;
+}
+
+// trim from both ends
+static inline std::string & trim( std::string & s )
+{
+  return ltrim(rtrim(s) );
+}
+
+// Split line
+static std::vector< std::string > split_line( const std::string & line, char delimiter )
+{
+  std::vector< std::string > res;
+
+  std::size_t pos = line.find( delimiter, 0 );
+  std::size_t startPos = 0;
+
+  while( pos != std::string::npos )
+  {
+    if( startPos != pos )
+      res.push_back( line.substr( startPos, pos - startPos ) );
+
+    startPos = pos + 1;
+    pos = line.find( delimiter, pos + 1 );
+  }
+
+  res.push_back( line.substr( startPos ) );
+  return res;
+}
+
+} //namespace common

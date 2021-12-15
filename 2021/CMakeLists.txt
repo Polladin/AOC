@@ -27,6 +27,10 @@ include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/src )
 
 file(GLOB COMMON_SRC src/common/*)
 
+############## UTests ############################
+
+file(GLOB UTESTS_SRC src/tests/*)
+add_executable(utests ${UTESTS_SRC} ${COMMON_SRC})
 
 ############## --- Day 1: Report Repair --- ##########
 
@@ -62,3 +66,8 @@ add_executable(day_06 ${DAY_6_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_7_SRC src/day_7/*)
 add_executable(day_07 ${DAY_7_SRC} ${COMMON_SRC})
+
+############## --- Day 8: Seven Segment Search --- ##########
+
+file(GLOB DAY_8_SRC src/day_8/*)
+add_executable(day_08 ${DAY_8_SRC} ${COMMON_SRC})
