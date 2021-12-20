@@ -71,3 +71,13 @@ add_executable(day_07 ${DAY_7_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_8_SRC src/day_8/*)
 add_executable(day_08 ${DAY_8_SRC} ${COMMON_SRC})
+
+############## --- Day 9: Smoke Basin --- ##########
+
+file(GLOB DAY_9_SRC src/day_9/*)
+add_executable(day_09 ${DAY_9_SRC} ${COMMON_SRC})
+
+############## --- Day 10: Syntax Scoring --- ##########
+
+file(GLOB DAY_10_SRC src/day_10/*)
+add_executable(day_10 ${DAY_10_SRC} ${COMMON_SRC})
