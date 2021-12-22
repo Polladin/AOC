@@ -15,7 +15,7 @@
 #include "common/file_reader.h"
 #include "common/common.h"
 
-
+// ----------------- Node ------------------------
 struct Node
 {
   explicit Node( std::string _name ) : name { _name } {}
@@ -30,6 +30,20 @@ struct Node
       std:: cout << _neighbours->name << ", ";
     std::cout << "\n";
   }
+};
+
+// ----------------- VisitedNode ------------------------
+struct VisitedNode
+{
+  VisitedNode( const Node * _node, std::set< std::string > _visited, bool _visitedTwice = false )
+          : node { _node }
+          , visited { std::move( _visited )  }
+          , visitedTwice { _visitedTwice }
+  {}
+
+  const Node * node;
+  std::set< std::string > visited;
+  bool visitedTwice { false };
 };
 
 using t_nodes = std::list< Node >;
@@ -54,6 +68,12 @@ void bind_node( Node & fromNode, Node & toNode )
     fromNode.neighbours.push_back( & toNode );
 }
 
+void bind_node_both_direction( Node & fromNode, Node & toNode )
+{
+  bind_node( fromNode, toNode );
+  bind_node( toNode, fromNode );
+}
+
 t_nodes prepare_input( const std::string & filename )
 {
   t_nodes nodes;
@@ -71,12 +91,8 @@ t_nodes prepare_input( const std::string & filename )
       throw std::runtime_error( "Size of split array must be 2" );
 
     // Get reference to the nodes
-    Node & firstNode  = add_node_name( nodeNames[ 0 ], nodes );
-    Node & secondNode = add_node_name( nodeNames[ 1 ], nodes );
-
-    // Add links
-    bind_node( firstNode, secondNode );
-    bind_node( secondNode, firstNode );
+    bind_node_both_direction(  add_node_name( nodeNames[ 0 ], nodes )
+                             , add_node_name( nodeNames[ 1 ], nodes ) );
   }
 
   return nodes;
@@ -92,38 +108,17 @@ const Node & get_node( const std::string & nodeName, const t_nodes & nodes )
   return *pNode;
 }
 
-struct VisitedNode
-{
-  VisitedNode( const Node * _node, std::set< std::string > _visited )
-    : node { _node }
-    , visited { std::move( _visited ) }
-  {}
 
-  VisitedNode( const Node * _node, std::set< std::string > _visited, bool _visitedTwice )
-    : node { _node }
-    , visited { std::move( _visited ) }
-    , visitedTwice { _visitedTwice }
-  {}
-
-  const Node * node;
-  std::set< std::string > visited;
-  bool visitedTwice { false };
-};
 
 bool is_capital( const std::string & str )
 {
   return std::all_of( str.begin(), str.end(), []( const char ch ){ return std::isupper( ch ); } );
-//  for ( const auto _ch : str )
-//    if ( _ch < 'A' || _ch > 'Z' )
-//      return false;
-//
-//  return true;
 }
 
-int depth_search( const t_nodes & nodes )
+
+int depth_search( const t_nodes & nodes, const bool isPart1 )
 {
   int amountOfPaths { 0 };
-  std::set< std::string > visited;
 
   // Get start & end points
   const auto & startNode = get_node( "start", nodes );
@@ -132,66 +127,11 @@ int depth_search( const t_nodes & nodes )
   std::stack< VisitedNode > nextPoints;
 
   // Push the start
-  visited.insert( startNode.name );
-  nextPoints.emplace( & startNode, visited );
+  nextPoints.emplace( & startNode, std::set< std::string >() );
 
   while( !nextPoints.empty()  )
   {
-    // Pop the first node from the queue
-    VisitedNode currentNode = nextPoints.top();
-    nextPoints.pop();
-
-    // For all neighbours
-    for ( const Node * _neighbour : currentNode.node->neighbours )
-    {
-      // End Node
-      if ( _neighbour == & endNode )
-      {
-        ++amountOfPaths;
-        continue;
-      }
-
-      // Is capital node
-      if ( is_capital( _neighbour->name ) )
-      {
-        nextPoints.emplace( _neighbour, currentNode.visited );
-        continue;
-      }
-
-      // Is lowercase node and It's visited
-      if ( currentNode.visited.count( _neighbour->name ) )
-        continue;
-
-      // Is lowercase node and it isn't visited
-      {
-        std::set< std::string > newVisitedNodes = currentNode.visited;
-        newVisitedNodes.insert( _neighbour->name );
-        nextPoints.emplace( _neighbour, newVisitedNodes );
-      }
-    }
-  }
-
-  return amountOfPaths;
-}
-
-int depth_search_task_2( const t_nodes & nodes )
-{
-  int amountOfPaths { 0 };
-  std::set< std::string > visited;
-
-  // Get start & end points
-  const auto & startNode = get_node( "start", nodes );
-  const auto & endNode   = get_node( "end"  , nodes );
-
-  std::stack< VisitedNode > nextPoints;
-
-  // Push the start
-  visited.insert( startNode.name );
-  nextPoints.emplace( & startNode, visited );
-
-  while( !nextPoints.empty()  )
-  {
-    // Pop the first node from the queue
+    // Pop the first node from the stack
     VisitedNode currentNode = nextPoints.top();
     nextPoints.pop();
 
@@ -216,24 +156,16 @@ int depth_search_task_2( const t_nodes & nodes )
         continue;
       }
 
-      // Is lowercase node and It's visited
-      if ( currentNode.visited.count( _neighbour->name ) )
-      {
-        if ( currentNode.visitedTwice )
-          continue;
+      const bool isLowercaseNodeVisited = currentNode.visited.count( _neighbour->name ) > 0;
 
-        std::set< std::string > newVisitedNodes = currentNode.visited;
-        newVisitedNodes.insert( _neighbour->name );
-        nextPoints.emplace( _neighbour, newVisitedNodes, true );
-
+      // Is lowercase node and It's visited twice
+      if ( isLowercaseNodeVisited && ( currentNode.visitedTwice || isPart1 ) )
         continue;
-      }
 
-      // Is lowercase node and it isn't visited
+      // Is lowercase node and it isn't visited twice
       {
-        std::set< std::string > newVisitedNodes = currentNode.visited;
-        newVisitedNodes.insert( _neighbour->name );
-        nextPoints.emplace( _neighbour, newVisitedNodes, currentNode.visitedTwice );
+        nextPoints.emplace( _neighbour, currentNode.visited, currentNode.visitedTwice || isLowercaseNodeVisited );
+        nextPoints.top().visited.insert( _neighbour->name );
       }
     }
   }
@@ -246,12 +178,12 @@ int PassagePathing::task_1( const std::string & filename )
 {
   t_nodes nodes = prepare_input( filename );
 
-  return depth_search( nodes );
+  return depth_search( nodes, true /* is part 1 */ );
 }
 
 int PassagePathing::task_2( const std::string &filename )
 {
   t_nodes nodes = prepare_input( filename );
 
-  return depth_search_task_2( nodes );
+  return depth_search( nodes, false /* is part 1 */ );
 }
