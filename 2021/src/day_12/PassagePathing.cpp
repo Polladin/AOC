@@ -15,41 +15,8 @@
 #include "common/file_reader.h"
 #include "common/common.h"
 
-// ----------------- Node ------------------------
-struct Node
-{
-  explicit Node( std::string _name ) : name { _name } {}
 
-  std::string name;
-  std::list< Node * > neighbours;
-
-  void print() const
-  {
-    std::cout << "Node " << name << " : ";
-    for ( auto _neighbours : neighbours )
-      std:: cout << _neighbours->name << ", ";
-    std::cout << "\n";
-  }
-};
-
-// ----------------- VisitedNode ------------------------
-struct VisitedNode
-{
-  VisitedNode( const Node * _node, std::set< std::string > _visited, bool _visitedTwice = false )
-          : node { _node }
-          , visited { std::move( _visited )  }
-          , visitedTwice { _visitedTwice }
-  {}
-
-  const Node * node;
-  std::set< std::string > visited;
-  bool visitedTwice { false };
-};
-
-using t_nodes = std::list< Node >;
-
-
-Node & add_node_name( const std::string & nodeName, t_nodes & nodes )
+PassagePathing::Node & PassagePathing::add_node_name( const std::string & nodeName )
 {
   // Try to find a node
   auto pNode = std::find_if( nodes.begin(), nodes.end(), [ &nodeName ]( const Node & node ){ return node.name == nodeName; } );
@@ -62,22 +29,30 @@ Node & add_node_name( const std::string & nodeName, t_nodes & nodes )
   return nodes.emplace_back( nodeName );
 }
 
-void bind_node( Node & fromNode, Node & toNode )
+void PassagePathing::bind_node( Node & fromNode, Node & toNode )
 {
   if ( std::find( fromNode.neighbours.begin(), fromNode.neighbours.end(), & toNode ) == fromNode.neighbours.end() )
     fromNode.neighbours.push_back( & toNode );
 }
 
-void bind_node_both_direction( Node & fromNode, Node & toNode )
+void PassagePathing::bind_node_both_direction( Node & fromNode, Node & toNode )
 {
   bind_node( fromNode, toNode );
   bind_node( toNode, fromNode );
 }
 
-t_nodes prepare_input( const std::string & filename )
+const PassagePathing::Node & PassagePathing::get_node( const std::string & nodeName ) const
 {
-  t_nodes nodes;
+  auto pNode = std::find_if( nodes.begin(), nodes.end(), [ &nodeName ]( const Node & node ){ return node.name == nodeName; } );
 
+  if ( pNode == nodes.end() )
+    throw std::runtime_error( "Node isn't found" );
+
+  return *pNode;
+}
+
+void PassagePathing::prepare_input( const std::string & filename )
+{
   // Read the file
   std::vector< std::string > sInput = FileReader::read_file( filename );
 
@@ -91,43 +66,59 @@ t_nodes prepare_input( const std::string & filename )
       throw std::runtime_error( "Size of split array must be 2" );
 
     // Get reference to the nodes
-    bind_node_both_direction(  add_node_name( nodeNames[ 0 ], nodes )
-                             , add_node_name( nodeNames[ 1 ], nodes ) );
+    bind_node_both_direction(  add_node_name( nodeNames[ 0 ] )
+                             , add_node_name( nodeNames[ 1 ] ) );
   }
 
-  return nodes;
+  startNode = & get_node( "start" );
+  endNode   = & get_node( "end"   );
 }
 
-const Node & get_node( const std::string & nodeName, const t_nodes & nodes )
-{
-  auto pNode = std::find_if( nodes.begin(), nodes.end(), [ &nodeName ]( const Node & node ){ return node.name == nodeName; } );
-
-  if ( pNode == nodes.end() )
-    throw std::runtime_error( "Node isn't found" );
-
-  return *pNode;
-}
-
-
-
-bool is_capital( const std::string & str )
+static bool is_capital( const std::string & str )
 {
   return std::all_of( str.begin(), str.end(), []( const char ch ){ return std::isupper( ch ); } );
 }
 
+int PassagePathing::process_neighbour(  const Node * neighbour
+                                      , const VisitedNode & currentNode
+                                      , std::stack< VisitedNode > & nextPoints ) const
+{
+  // Start point
+  if ( neighbour == startNode )
+    return 0;
 
-int depth_search( const t_nodes & nodes, const bool isPart1 )
+  // End Node, add +1 to paths
+  if ( neighbour == endNode )
+    return 1;
+
+  // Is capital node
+  if ( is_capital( neighbour->name ) )
+  {
+    nextPoints.emplace( neighbour, currentNode.visited, currentNode.visitedTwice );
+    return 0;
+  }
+
+  const bool isLowercaseNodeVisited = currentNode.visited.count( neighbour->name ) > 0;
+
+  // Is lowercase node and It's visited twice
+  if ( isLowercaseNodeVisited && ( currentNode.visitedTwice || isPart1 ) )
+    return 0;
+
+  // Is lowercase node and it isn't visited twice
+  nextPoints.emplace( neighbour, currentNode.visited, currentNode.visitedTwice || isLowercaseNodeVisited );
+  nextPoints.top().visited.insert( neighbour->name );
+
+  return 0;
+}
+
+int PassagePathing::depth_search() const
 {
   int amountOfPaths { 0 };
-
-  // Get start & end points
-  const auto & startNode = get_node( "start", nodes );
-  const auto & endNode   = get_node( "end"  , nodes );
 
   std::stack< VisitedNode > nextPoints;
 
   // Push the start
-  nextPoints.emplace( & startNode, std::set< std::string >() );
+  nextPoints.emplace( startNode, std::set< std::string >() );
 
   while( !nextPoints.empty()  )
   {
@@ -137,37 +128,7 @@ int depth_search( const t_nodes & nodes, const bool isPart1 )
 
     // For all neighbours
     for ( const Node * _neighbour : currentNode.node->neighbours )
-    {
-      // Start point
-      if ( _neighbour == & startNode )
-        continue;
-
-      // End Node
-      if ( _neighbour == & endNode )
-      {
-        ++amountOfPaths;
-        continue;
-      }
-
-      // Is capital node
-      if ( is_capital( _neighbour->name ) )
-      {
-        nextPoints.emplace( _neighbour, currentNode.visited, currentNode.visitedTwice );
-        continue;
-      }
-
-      const bool isLowercaseNodeVisited = currentNode.visited.count( _neighbour->name ) > 0;
-
-      // Is lowercase node and It's visited twice
-      if ( isLowercaseNodeVisited && ( currentNode.visitedTwice || isPart1 ) )
-        continue;
-
-      // Is lowercase node and it isn't visited twice
-      {
-        nextPoints.emplace( _neighbour, currentNode.visited, currentNode.visitedTwice || isLowercaseNodeVisited );
-        nextPoints.top().visited.insert( _neighbour->name );
-      }
-    }
+      amountOfPaths += process_neighbour( _neighbour, currentNode, nextPoints );
   }
 
   return amountOfPaths;
@@ -176,14 +137,18 @@ int depth_search( const t_nodes & nodes, const bool isPart1 )
 
 int PassagePathing::task_1( const std::string & filename )
 {
-  t_nodes nodes = prepare_input( filename );
+  isPart1 = true;
 
-  return depth_search( nodes, true /* is part 1 */ );
+  prepare_input( filename );
+
+  return depth_search();
 }
 
 int PassagePathing::task_2( const std::string &filename )
 {
-  t_nodes nodes = prepare_input( filename );
+  isPart1  = false;
 
-  return depth_search( nodes, false /* is part 1 */ );
+  prepare_input( filename );
+
+  return depth_search();
 }

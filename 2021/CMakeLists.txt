@@ -91,3 +91,8 @@ add_executable(day_11 ${DAY_11_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_12_SRC src/day_12/*)
 add_executable(day_12 ${DAY_12_SRC} ${COMMON_SRC})
+
+############# --- Day 13: Transparent Origami --- ##########
+
+file(GLOB DAY_13_SRC src/day_13/*)
+add_executable(day_13 ${DAY_13_SRC} ${COMMON_SRC})
