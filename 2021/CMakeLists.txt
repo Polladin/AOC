@@ -96,3 +96,14 @@ add_executable(day_12 ${DAY_12_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_13_SRC src/day_13/*)
 add_executable(day_13 ${DAY_13_SRC} ${COMMON_SRC})
+
+############# --- Day 14: Extended Polymerization --- ##########
+
+file(GLOB DAY_14_SRC src/day_14/*)
+add_executable(day_14 ${DAY_14_SRC} ${COMMON_SRC})
+
+############# --- Day 15: Chiton --- ##########
+
+file(GLOB DAY_15_SRC src/day_15/*)
+add_executable(day_15 ${DAY_15_SRC} ${COMMON_SRC})
+

@@ -66,14 +66,6 @@ void print_results(   const std::string &day
       // Run the test and print results
       _part == 0 ? print_test_result( testNum, TestedClass().task_1( fullTestPath.str() ) )
                  : print_test_result( testNum, TestedClass().task_2( fullTestPath.str() ) );
-//      if( _part == 0 )
-//      {
-//        print_test_result( testNum, TestedClass().task_1( fullTestPath.str() ) );
-//      }
-//      else
-//      {
-//        print_test_result( testNum, TestedClass().task_2( fullTestPath.str() ) );
-//      }
     }
 
     if ( enables[ 1 ][ 0 ] == '1' )
