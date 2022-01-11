@@ -111,3 +111,8 @@ add_executable(day_15 ${DAY_15_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_16_SRC src/day_16/*)
 add_executable(day_16 ${DAY_16_SRC} ${COMMON_SRC})
+
+############# --- Day 17: Trick Shot --- ##########
+
+file(GLOB DAY_17_SRC src/day_17/*)
+add_executable(day_17 ${DAY_17_SRC} ${COMMON_SRC})
