@@ -12,7 +12,7 @@ namespace common {
 template < typename ResultType >
 void print_test_result( const std::string & testNum, ResultType result )
 {
-  std::cout << "Res for TEST " << testNum << ": " << result << std::endl;
+  std::cout << "Res for TEST " << testNum << ": " << result << "\n" << std::endl;
 }
 
 template < typename ResultType >

@@ -107,3 +107,7 @@ add_executable(day_14 ${DAY_14_SRC} ${COMMON_SRC})
 file(GLOB DAY_15_SRC src/day_15/*)
 add_executable(day_15 ${DAY_15_SRC} ${COMMON_SRC})
 
+############# --- Day 16: Packet Decoder --- ##########
+
+file(GLOB DAY_16_SRC src/day_16/*)
+add_executable(day_16 ${DAY_16_SRC} ${COMMON_SRC})
