@@ -116,3 +116,8 @@ add_executable(day_16 ${DAY_16_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_17_SRC src/day_17/*)
 add_executable(day_17 ${DAY_17_SRC} ${COMMON_SRC})
+
+############# --- Day 18: Snailfish --- ##########
+
+file(GLOB DAY_18_SRC src/day_18/*)
+add_executable(day_18 ${DAY_18_SRC} ${COMMON_SRC})
