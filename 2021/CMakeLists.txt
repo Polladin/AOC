@@ -121,3 +121,8 @@ add_executable(day_17 ${DAY_17_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_18_SRC src/day_18/*)
 add_executable(day_18 ${DAY_18_SRC} ${COMMON_SRC})
+
+############# --- Day 19: Beacon Scanner --- ##########
+
+file(GLOB DAY_19_SRC src/day_19/*)
+add_executable(day_19 ${DAY_19_SRC} ${COMMON_SRC})
