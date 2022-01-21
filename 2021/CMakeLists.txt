@@ -126,3 +126,8 @@ add_executable(day_18 ${DAY_18_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_19_SRC src/day_19/*)
 add_executable(day_19 ${DAY_19_SRC} ${COMMON_SRC})
+
+############# --- Day 20: Trench Map --- ##########
+
+file(GLOB DAY_20_SRC src/day_20/*)
+add_executable(day_20 ${DAY_20_SRC} ${COMMON_SRC})
