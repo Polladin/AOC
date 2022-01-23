@@ -131,3 +131,8 @@ add_executable(day_19 ${DAY_19_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_20_SRC src/day_20/*)
 add_executable(day_20 ${DAY_20_SRC} ${COMMON_SRC})
+
+############# --- Day 21: Dirac Dice --- ##########
+
+file(GLOB DAY_21_SRC src/day_21/*)
+add_executable(day_21 ${DAY_21_SRC} ${COMMON_SRC})
