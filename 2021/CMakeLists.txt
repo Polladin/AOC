@@ -136,3 +136,8 @@ add_executable(day_20 ${DAY_20_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_21_SRC src/day_21/*)
 add_executable(day_21 ${DAY_21_SRC} ${COMMON_SRC})
+
+############# --- Day 22: Reactor Reboot --- ##########
+
+file(GLOB DAY_22_SRC src/day_22/*)
+add_executable(day_22 ${DAY_22_SRC} ${COMMON_SRC})
