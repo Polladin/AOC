@@ -141,3 +141,13 @@ add_executable(day_21 ${DAY_21_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_22_SRC src/day_22/*)
 add_executable(day_22 ${DAY_22_SRC} ${COMMON_SRC})
+
+############# --- Day 23: Amphipod --- ##########
+
+file(GLOB DAY_23_SRC src/day_23/*)
+add_executable(day_23 ${DAY_23_SRC} ${COMMON_SRC})
+
+############# --- Day 25: Sea Cucumber --- ##########
+
+file(GLOB DAY_25_SRC src/day_25/*)
+add_executable(day_25 ${DAY_25_SRC} ${COMMON_SRC})
