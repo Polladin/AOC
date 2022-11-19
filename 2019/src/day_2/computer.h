@@ -3,11 +3,17 @@
 #include <string>
 #include <vector>
 #include <queue>
+#include <optional>
+
 
 class Computer
 {
 
 public:
+
+  Computer() = default;
+
+  Computer( const bool initDay23 ) : day23{ initDay23 } {}
 
   long long run_part_1( const std::string & inputFile );
 
@@ -19,6 +25,12 @@ public:
   bool run_day_7_part_1( const std::queue< long long >& input, std::vector< long long > & output );
 
   void reset_program( const std::vector< long long > & _memory );
+
+protected:
+
+  virtual long long input()                 { throw "Use base function input()"; return 0; }
+
+  virtual void      output( long long val ) { throw "Use base function output()"; }
 
 private:
 
@@ -32,8 +44,6 @@ private:
   void set_reg( std::vector< long long > & opcodes, long long pos, long long value, int mode );
 
   long long run_part_2_step( std::vector< long long > opcodes, int noun, int verb );
-
-
 
 public:
 
@@ -49,4 +59,7 @@ private:
 
   // Relative pointer
   long long relPos{ 0 };
+
+  // Day 23
+  const bool day23 { false };
 };

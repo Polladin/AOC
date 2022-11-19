@@ -7,6 +7,7 @@
 #include <vector>
 #include <queue>
 #include <numeric>
+#include <limits>
 
 #include "common/file_reader.h"
 #include "common/common.h"

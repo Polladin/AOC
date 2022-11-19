@@ -9,7 +9,7 @@
 
 const static std::string DEAL_INTO_STR = "deal into new stack";
 const static std::string DEAL_WITH_STR = "deal with increment";
-const static std::string CUT_STR = "cut";
+const static std::string CUT_STR       = "cut";
 
 
 
@@ -21,18 +21,24 @@ int Cards::run_part_1( const std::string & fileName, int countCards )
   for ( int idx = 0; idx < cards.size(); ++idx )
     cards[ idx ] = idx;
 
-  for ( const auto _shuffle : shuffles )
-    cards = make_shuffle( _shuffle.first, _shuffle.second, cards );
+  std::reverse( shuffles.begin(), shuffles.end() );
 
-  for ( int idx = 0; idx < cards.size(); ++idx )
-    std::cout << cards[ idx ] << ", ";
-  std::cout << "\n";
+  cards = make_shuffle( shuffles[ 1 ].first, shuffles[ 1 ].second, cards );
+
+  std::cout << "Reference : " << cards[ 2916 ] << "\n";
+
+//  for ( const auto & _shuffle : shuffles )
+//    cards = make_shuffle( _shuffle.first, _shuffle.second, cards );
+
+//  for ( int idx = 0; idx < cards.size(); ++idx )
+//    std::cout << cards[ idx ] << ", ";
+//  std::cout << "\n";
 
   //return 0;
 
-  for ( int idx = 0; idx < cards.size(); ++idx )
-    if ( cards[ idx ] == 2019 )
-      return idx;
+//  for ( int idx = 0; idx < cards.size(); ++idx )
+//    if ( cards[ idx ] == 2019 )
+//      return idx;
 
   return 0;
 }
@@ -227,9 +233,9 @@ std::vector<int> Cards::deal_with( int val, const std::vector<int>& table )
   return res;
 }
 
-std::vector<int> Cards::deal_into( const std::vector<int>& table )
+std::vector< int > Cards::deal_into( const std::vector<int>& table )
 {
-  return std::vector<int>( table.rbegin(), table.rend() );
+  return std::vector< int >( table.rbegin(), table.rend() );
 }
 
 long long Cards::cut_back( long long val, long long pos, long long size )

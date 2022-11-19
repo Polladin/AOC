@@ -10,6 +10,7 @@
 #include <functional>
 #include <algorithm>
 #include <optional>
+#include <limits>
 
 #include "common/file_reader.h"
 

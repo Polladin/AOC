@@ -7,6 +7,7 @@ project (AdventOfCode2021)
 
 set(CMAKE_CXX_STANDARD 17)
 add_definitions(-DINPUT_FILES="${CMAKE_CURRENT_SOURCE_DIR}/input")
+add_compile_options(-Wall -Wextra -pedantic)
 
 ################# BOOST ######################
 #

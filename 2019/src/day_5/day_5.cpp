@@ -10,8 +10,8 @@ int main()
   Computer cmp;
 
 
-  std::queue< int > in;
-  std::vector< int > out;
+  std::queue< long long > in;
+  std::vector< long long > out;
   in.push( 5 );
 
   // auto res = cmp.run_day_5_part_1( INPUT_FILES "/day_5/example_7.txt", in, out);

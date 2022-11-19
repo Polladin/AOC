@@ -4,6 +4,7 @@
 
 #include <sstream>
 #include <iostream>
+#include <algorithm>
 
 
 int Orbits::run_part_1( const std::string & fileName )

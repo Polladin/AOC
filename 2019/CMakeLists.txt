@@ -1,7 +1,10 @@
 
-cmake_minimum_required (VERSION 3.12)
+cmake_minimum_required (VERSION 3.24)
 
 project (AdventOfCode)
+
+set(CMAKE_CXX_STANDARD 20)
+set (CMAKE_EXE_LINKER_FLAGS -pthread )
 
 ################ Definitions ###############
 
@@ -12,14 +15,14 @@ add_definitions(-DINPUT_FILES="${CMAKE_CURRENT_SOURCE_DIR}/input")
 SET(Boost_USE_STATIC_LIBS ON)	
 set(Boost_USE_MULTITHREADED ON)  
 
-find_package(Boost 1.64 REQUIRED COMPONENTS 
-		program_options 
-		filesystem
-		regex 
-        iostreams
-	)
+#find_package(Boost 1.64 REQUIRED COMPONENTS
+#		program_options
+#		filesystem
+#		regex
+#        iostreams
+#	)
 
-include_directories( ${Boost_INCLUDE_DIRS} )	
+#include_directories( ${Boost_INCLUDE_DIRS} )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/src )
 
 ############## Common ############################
@@ -27,113 +30,124 @@ include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/src )
 file(GLOB COMMON_SRC src/common/*)
 
 
-############## Day 1 : The Tyranny of the Rocket Equation ##########
+############## day 1 : The Tyranny of the Rocket Equation ##########
 
-file(GLOB DAY_1_SRC src/Day_1/*)
-add_executable(day_01 ${DAY_1_SRC} ${COMMON_SRC})
+file(GLOB day_1_SRC src/day_1/*)
+add_executable(day_01 ${day_1_SRC} ${COMMON_SRC})
 
-############## Day 2 : 1202 Program Alarm ##########
+############## day 2 : 1202 Program Alarm ##########
 
-file(GLOB DAY_2_SRC src/Day_2/*)
-add_executable(day_02 ${DAY_2_SRC} ${COMMON_SRC})
+file(GLOB day_2_SRC src/day_2/*)
+add_executable(day_02 ${day_2_SRC} ${COMMON_SRC})
 
-############## Day 3 : Crossed Wires ##########
+############## day 3 : Crossed Wires ##########
 
-file(GLOB DAY_3_SRC src/Day_3/*)
-add_executable(day_03 ${DAY_3_SRC} ${COMMON_SRC})
+file(GLOB day_3_SRC src/day_3/*)
+add_executable(day_03 ${day_3_SRC} ${COMMON_SRC})
 
-############## Day 4 : Secure Container ##########
+############## day 4 : Secure Container ##########
 
-file(GLOB DAY_4_SRC src/Day_4/*)
-add_executable(day_04 ${DAY_4_SRC} ${COMMON_SRC})
+file(GLOB day_4_SRC src/day_4/*)
+add_executable(day_04 ${day_4_SRC} ${COMMON_SRC})
 
-############## Day 5: Sunny with a Chance of Asteroids ##########
+############## day 5: Sunny with a Chance of Asteroids ##########
 
-file(GLOB DAY_5_SRC src/Day_5/*)
-add_executable(day_05 ${DAY_5_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
+file(GLOB day_5_SRC src/day_5/*)
+add_executable(day_05 ${day_5_SRC} ${COMMON_SRC} ${CMAKE_CURRENT_SOURCE_DIR}/src/day_2/computer.h src/day_2/computer.cpp)
 
-############## Day 6: Universal Orbit Map ##########
+############## day 6: Universal Orbit Map ##########
 
-file(GLOB DAY_6_SRC src/Day_6/*)
-add_executable(day_06 ${DAY_6_SRC} ${COMMON_SRC} )
+file(GLOB day_6_SRC src/day_6/*)
+add_executable(day_06 ${day_6_SRC} ${COMMON_SRC} )
 
-############## Day 7: Amplification Circuit ##########
+############## day 7: Amplification Circuit ##########
 
-file(GLOB DAY_7_SRC src/Day_7/*)
-add_executable(day_07 ${DAY_7_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
+file(GLOB day_7_SRC src/day_7/*)
+add_executable(day_07 ${day_7_SRC} ${COMMON_SRC} src/day_2/computer.h src/day_2/computer.cpp)
 
-############## Day 8: Space Image Format ##########
+############## day 8: Space Image Format ##########
 
-file(GLOB DAY_8_SRC src/Day_8/*)
-add_executable(day_08 ${DAY_8_SRC} ${COMMON_SRC})
+file(GLOB day_8_SRC src/day_8/*)
+add_executable(day_08 ${day_8_SRC} ${COMMON_SRC})
 
-############## Day 9: Sensor Boost ##########
+############## day 9: Sensor Boost ##########
 
-file(GLOB DAY_9_SRC src/Day_9/*)
-add_executable(day_09 ${DAY_9_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
+file(GLOB day_9_SRC src/day_9/*)
+add_executable(day_09 ${day_9_SRC} ${COMMON_SRC} ${CMAKE_CURRENT_SOURCE_DIR}/src/day_2/computer.h ${CMAKE_CURRENT_SOURCE_DIR}/src/day_2/computer.cpp)
 
-############## Day 10: Monitoring Station ##########
+############## day 10: Monitoring Station ##########
 
-file(GLOB DAY_10_SRC src/Day_10/*)
-add_executable(day_10 ${DAY_10_SRC} ${COMMON_SRC})
+file(GLOB day_10_SRC src/day_10/*)
+add_executable(day_10 ${day_10_SRC} ${COMMON_SRC})
 
-############## Day 11: Space Police ##########
+############## day 11: Space Police ##########
 
-file(GLOB DAY_11_SRC src/Day_11/*)
-add_executable(day_11 ${DAY_11_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
+file(GLOB day_11_SRC src/day_11/*)
+add_executable(day_11 ${day_11_SRC} ${COMMON_SRC} src/day_2/computer.h src/day_2/computer.cpp)
 
-############## Day 12: The N-Body Problem ##########
+############## day 12: The N-Body Problem ##########
 
-file(GLOB DAY_12_SRC src/Day_12/*)
-add_executable(day_12 ${DAY_12_SRC} ${COMMON_SRC})
+file(GLOB day_12_SRC src/day_12/*)
+add_executable(day_12 ${day_12_SRC} ${COMMON_SRC})
 
-############## Day 13: Care Package ##########
+############## day 13: Care Package ##########
 
-file(GLOB DAY_13_SRC src/Day_13/*)
-add_executable(day_13 ${DAY_13_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
+file(GLOB day_13_SRC src/day_13/*)
+add_executable(day_13 ${day_13_SRC} ${COMMON_SRC} src/day_2/computer.h src/day_2/computer.cpp)
 
-############## Day 14: Space Stoichiometry ##########
+############## day 14: Space Stoichiometry ##########
 
-file(GLOB DAY_14_SRC src/Day_14/*)
-add_executable(day_14 ${DAY_14_SRC} ${COMMON_SRC})
+file(GLOB day_14_SRC src/day_14/*)
+add_executable(day_14 ${day_14_SRC} ${COMMON_SRC})
 
-############## Day 15: Oxygen System ##########
+############## day 15: Oxygen System ##########
 
-file(GLOB DAY_15_SRC src/Day_15/*)
-add_executable(day_15 ${DAY_15_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
+file(GLOB day_15_SRC src/day_15/*)
+add_executable(day_15 ${day_15_SRC} ${COMMON_SRC} src/day_2/computer.h src/day_2/computer.cpp)
 
-############## Day 16: Flawed Frequency Transmission ##########
+############## day 16: Flawed Frequency Transmission ##########
 
-file(GLOB DAY_16_SRC src/Day_16/*)
-add_executable(day_16 ${DAY_16_SRC} ${COMMON_SRC})
+file(GLOB day_16_SRC src/day_16/*)
+add_executable(day_16 ${day_16_SRC} ${COMMON_SRC})
 
-############## Day 17: Flawed Frequency Transmission ##########
+############## day 17: Flawed Frequency Transmission ##########
 
-file(GLOB DAY_17_SRC src/Day_17/*)
-add_executable(day_17 ${DAY_17_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
+file(GLOB day_17_SRC src/day_17/*)
+add_executable(day_17 ${day_17_SRC} ${COMMON_SRC} src/day_2/computer.h src/day_2/computer.cpp)
 
-############## Day 18: Many-Worlds Interpretation ##########
+############## day 18: Many-Worlds Interpretation ##########
 
-file(GLOB DAY_18_SRC src/Day_18/*)
-add_executable(day_18 ${DAY_18_SRC} ${COMMON_SRC})
+file(GLOB day_18_SRC src/day_18/*)
+add_executable(day_18 ${day_18_SRC} ${COMMON_SRC})
 
-############## Day 19: Tractor Beam ##########
+############## day 19: Tractor Beam ##########
 
-file(GLOB DAY_19_SRC src/Day_19/*)
-add_executable(day_19 ${DAY_19_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
+file(GLOB day_19_SRC src/day_19/*)
+add_executable(day_19 ${day_19_SRC} ${COMMON_SRC} src/day_2/computer.h src/day_2/computer.cpp)
 
-############## Day 20: Donut Maze ##########
+############## day 20: Donut Maze ##########
 
-file(GLOB DAY_20_SRC src/Day_20/*)
-add_executable(day_20 ${DAY_20_SRC} ${COMMON_SRC})
+file(GLOB day_20_SRC src/day_20/*)
+add_executable(day_20 ${day_20_SRC} ${COMMON_SRC})
 
-############## Day 21: Springdroid Adventure ##########
+############## day 21: Springdroid Adventure ##########
 
-file(GLOB DAY_21_SRC src/Day_21/*)
-add_executable(day_21 ${DAY_21_SRC} ${COMMON_SRC} src/Day_2/computer.h src/Day_2/computer.cpp)
+file(GLOB day_21_SRC src/day_21/*)
+add_executable(day_21 ${day_21_SRC} ${COMMON_SRC} src/day_2/computer.h src/day_2/computer.cpp)
 
-############## Day 22: Slam Shuffle ##########
+############## day 22: Slam Shuffle ##########
 
-file(GLOB DAY_22_SRC src/Day_22/*)
-add_executable(day_22 ${DAY_22_SRC} ${COMMON_SRC})
+file(GLOB day_22_SRC src/day_22/*)
+add_executable(day_22 ${day_22_SRC} ${COMMON_SRC})
+
+############## day 23: Category Six ##########
+
+file(GLOB day_23_SRC src/day_23/*)
+add_executable(day_23 ${day_23_SRC} ${COMMON_SRC} src/day_2/computer.h src/day_2/computer.cpp)
+
+############## day 24: Planet of Discord ##########
+
+file(GLOB day_24_SRC src/day_24/*)
+add_executable(day_24 ${day_24_SRC} ${COMMON_SRC} )
+
 

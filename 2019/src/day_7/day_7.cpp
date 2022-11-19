@@ -5,6 +5,7 @@
 
 #include <array>
 #include <limits>
+#include <algorithm>
 
 
 int main()

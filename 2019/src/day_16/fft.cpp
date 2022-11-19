@@ -4,6 +4,7 @@
 #include "common/file_reader.h"
 
 #include <iostream>
+#include <algorithm>
 
 
 static const std::vector< int > PATTERN = { 0, 1, 0, -1 };

@@ -54,7 +54,7 @@ Stoichiometry::t_reaction Stoichiometry::prepare_input_( const std::string & fil
   // Read the file
   std::vector< std::string > sInputs = FileReader::read_file( fileName );
 
-  for ( const auto _line : sInputs )
+  for ( const auto & _line : sInputs )
   {
     // formula
     std::string sFormula = _line.substr( 0,  _line.find( "=>" ) );

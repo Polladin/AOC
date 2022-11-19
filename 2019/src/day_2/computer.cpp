@@ -12,7 +12,7 @@ long long Computer::run_part_1( const std::string & inputFile )
 {
   std::vector< long long > inputCodes = prepare_input( inputFile );
 
-  modify_1202( inputCodes );
+//  modify_1202( inputCodes );
 
   execute( inputCodes );
 
@@ -138,8 +138,8 @@ void Computer::execute( std::vector< long long >& opcodes, long long pos )
 
   for ( int i = 0; i < MAX_STEPS; ++i )
   {
-    if ( i % 100000 == 0 && i > 1000 )
-      std::cout << "I : " << i << "\n";
+//    if ( i % 100000 == 0 && i > 1000 )
+//      std::cout << "I : " << i << "\n";
 
     // Inititalize parameter modes
     modes[ 0 ] = ( opcodes[ pos ] / 100   ) % 10;
@@ -168,6 +168,14 @@ void Computer::execute( std::vector< long long >& opcodes, long long pos )
       break;
 
     case 3: // Input
+
+      // ----- day 23 -----------
+      if ( day23 )
+          set_reg( opcodes, opcodes[ pos + 1 ], input(), modes[ 0 ] );
+      pos += 2;
+      break;
+
+      // ----- other -----------
       if ( m_input.size() == 0 )
       {
         stop = true;
@@ -181,7 +189,10 @@ void Computer::execute( std::vector< long long >& opcodes, long long pos )
       break;
 
     case 4: // Output
-      m_output.push_back( get_reg( opcodes, opcodes[ pos + 1 ], modes[ 0 ] ) );
+      if ( day23 )
+        output( get_reg( opcodes, opcodes[ pos + 1 ], modes[ 0 ] ) );
+      else
+        m_output.push_back( get_reg( opcodes, opcodes[ pos + 1 ], modes[ 0 ] ) );
 
       pos += 2;
       break;
@@ -244,7 +255,7 @@ void Computer::execute( std::vector< long long >& opcodes, long long pos )
 
 
 
-long long Computer::get_reg( std::vector< long long >& opcodes, long long pos, int mode )
+long long Computer::get_reg( std::vector< long long > & opcodes, long long pos, int mode )
 {
   if ( mode == 1 )
     return pos;

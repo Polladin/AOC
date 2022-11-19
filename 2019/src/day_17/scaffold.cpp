@@ -277,7 +277,7 @@ void Scaffold::add_input_to_que( const std::string & str, std::queue< long long 
 {
   for ( int i = 0; i < str.length(); ++i )
   {
-    que.push( long long( str[ i ] ) );
+    que.push( (long long)( str[ i ] ) );
   }
 
   // push new line

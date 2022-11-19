@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <functional>
+#include <limits>
 
 #include "common/file_reader.h"
 

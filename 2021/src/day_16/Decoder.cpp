@@ -6,6 +6,7 @@
 
 #include <stdexcept>
 #include <algorithm>
+#include <limits>
 
 Packet decode_a_message( const std::string & message, std::size_t & pos );
 
