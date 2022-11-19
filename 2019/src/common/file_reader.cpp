@@ -19,7 +19,7 @@ std::vector<std::string> FileReader::read_file( const std::string & fileName )
     std::string inLine;
     std::getline( ifs, inLine );
 
-    if ( !ifs.eof() )
+    if ( !ifs.eof() || !inLine.empty() )
         lines.emplace_back( std::move( inLine ) );
   }
 

@@ -141,6 +141,15 @@ void Computer::execute( std::vector< long long >& opcodes, long long pos )
 //    if ( i % 100000 == 0 && i > 1000 )
 //      std::cout << "I : " << i << "\n";
 
+      static const std::vector< long long > stopCommand = { 'C', 'o', 'm', 'm', 'a', 'n', 'd', '?', 10 };
+
+      if ( m_output.size() > stopCommand.size() )
+          if ( std::equal( stopCommand.begin(), stopCommand.end(), m_output.end() - stopCommand.size() - 1 ) )
+          {
+              ipos = pos;
+              break;
+          }
+
     // Inititalize parameter modes
     modes[ 0 ] = ( opcodes[ pos ] / 100   ) % 10;
     modes[ 1 ] = ( opcodes[ pos ] / 1000  ) % 10;
@@ -171,9 +180,11 @@ void Computer::execute( std::vector< long long >& opcodes, long long pos )
 
       // ----- day 23 -----------
       if ( day23 )
+      {
           set_reg( opcodes, opcodes[ pos + 1 ], input(), modes[ 0 ] );
-      pos += 2;
-      break;
+          pos += 2;
+          break;
+      }
 
       // ----- other -----------
       if ( m_input.size() == 0 )

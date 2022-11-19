@@ -150,4 +150,8 @@ add_executable(day_23 ${day_23_SRC} ${COMMON_SRC} src/day_2/computer.h src/day_2
 file(GLOB day_24_SRC src/day_24/*)
 add_executable(day_24 ${day_24_SRC} ${COMMON_SRC} )
 
+############## day 25: Cryostasis ##########
+
+file(GLOB day_25_SRC src/day_25/*)
+add_executable(day_25 ${day_25_SRC} ${COMMON_SRC} src/day_2/computer.h src/day_2/computer.cpp)
 
