@@ -55,3 +55,9 @@ add_executable(day_06 ${DAY_6_SRC} ${COMMON_SRC})
 file(GLOB DAY_7_SRC src/day_07/*)
 add_executable(day_07 ${DAY_7_SRC} ${COMMON_SRC})
 
+############## --- Day 8: Treetop Tree House --- ##########
+
+file(GLOB DAY_8_SRC src/day_08/*)
+add_executable(day_08 ${DAY_8_SRC} ${COMMON_SRC})
+
+
