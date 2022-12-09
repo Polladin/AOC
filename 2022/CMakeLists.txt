@@ -60,4 +60,8 @@ add_executable(day_07 ${DAY_7_SRC} ${COMMON_SRC})
 file(GLOB DAY_8_SRC src/day_08/*)
 add_executable(day_08 ${DAY_8_SRC} ${COMMON_SRC})
 
+############## --- Day 9: Rope Bridge --- ##########
+
+file(GLOB DAY_9_SRC src/day_09/*)
+add_executable(day_09 ${DAY_9_SRC} ${COMMON_SRC})
 

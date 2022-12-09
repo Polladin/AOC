@@ -31,6 +31,14 @@ static std::function< bool( const std::pair< int, int > &, const std::pair< int,
                                     : lhs.first < rhs.first;    
     };
 
+struct PointCmp
+{
+    bool operator() ( const t_coord & lhs, const t_coord & rhs ) const
+    {
+        return lhs.x == rhs.x ? lhs.y < rhs.y
+                              : lhs.x < rhs.x;
+    }
+};
 
 static std::function< bool( const t_coord &, const t_coord & ) >
   compare_coords =
