@@ -70,4 +70,8 @@ add_executable(day_09 ${DAY_9_SRC} ${COMMON_SRC})
 file(GLOB DAY_10_SRC src/day_10/*)
 add_executable(day_10 ${DAY_10_SRC} ${COMMON_SRC})
 
+############## --- Day 11: Monkey in the Middle --- ##########
+
+file(GLOB DAY_11_SRC src/day_11/*)
+add_executable(day_11 ${DAY_11_SRC} ${COMMON_SRC})
 
