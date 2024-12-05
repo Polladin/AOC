@@ -34,3 +34,8 @@ add_executable(day_02 ${DAY_2_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_3_SRC src/day_03/*)
 add_executable(day_03 ${DAY_3_SRC} ${COMMON_SRC})
+
+############## --- Day 4: Ceres Search --- ##########
+
+file(GLOB DAY_4_SRC src/day_04/*)
+add_executable(day_04 ${DAY_4_SRC} ${COMMON_SRC})
