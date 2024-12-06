@@ -44,3 +44,8 @@ add_executable(day_04 ${DAY_4_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_5_SRC src/day_05/*)
 add_executable(day_05 ${DAY_5_SRC} ${COMMON_SRC})
+
+############## --- Day 6: Guard Gallivant --- ##########
+
+file(GLOB DAY_6_SRC src/day_06/*)
+add_executable(day_06 ${DAY_6_SRC} ${COMMON_SRC})
