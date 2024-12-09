@@ -23,6 +23,17 @@ struct t_coord
   int x, y;
 };
 
+[[maybe_unused]]
+static t_coord operator+( const t_coord & lhs, const t_coord & rhs )
+{
+    return { lhs.x + rhs.x, lhs.y + rhs.y };
+}
+
+[[maybe_unused]]
+static t_coord operator-( const t_coord & lhs, const t_coord & rhs )
+{
+    return { lhs.x - rhs.x, lhs.y - rhs.y };
+}
 
 static std::function< bool( const std::pair< int, int > &, const std::pair< int, int > & ) > 
   compare_pairs =
