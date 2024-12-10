@@ -64,3 +64,8 @@ add_executable(day_08 ${DAY_8_SRC} ${COMMON_SRC})
 
 file(GLOB DAY_9_SRC src/day_09/*)
 add_executable(day_09 ${DAY_9_SRC} ${COMMON_SRC})
+
+############## --- Day 10: Hoof It --- ##########
+
+file(GLOB DAY_10_SRC src/day_10/*)
+add_executable(day_10 ${DAY_10_SRC} ${COMMON_SRC})
