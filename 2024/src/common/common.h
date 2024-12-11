@@ -83,6 +83,17 @@ static long long lcm( long long a, long long b )
   return a * b / gcd( a, b );
 }
 
+template< typename T >
+void print_vector( const std::vector< T > & vec, std::string message = "-- Print Vector --\n" )
+{
+    std::cout << message;
+    for ( const auto & elem_ : vec )
+    {
+        std::cout << elem_ << " ";
+    }
+    std::cout << "\n";
+}
+
 [[maybe_unused]]
 static void print_map( const std::map< t_coord, int, decltype(compare_coords) > & colors, t_coord /*startPoint*/ )
 {
